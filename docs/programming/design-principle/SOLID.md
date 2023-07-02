@@ -1,3 +1,3 @@
-# SOLID Pattern
+# SOLID Principle
 
 Hello from SOLID
