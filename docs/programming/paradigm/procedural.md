@@ -18,6 +18,6 @@ Here are some key aspects of Procedural Programming:
 
 Examples of procedural programming languages include C, Go, Fortran and Pascal.
 
-## Pros and Cons
+## Pros & Cons
 
 While procedural programming provides a straightforward and easy-to-understand approach to problem-solving, it **may not be ideal for complex application** development that requires high scalability and manageability. For such scenarios, other paradigms like object-oriented or functional programming may be more suitable.

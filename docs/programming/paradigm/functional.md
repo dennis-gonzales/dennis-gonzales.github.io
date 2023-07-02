@@ -20,6 +20,6 @@ Key concepts in functional programming include:
 
 Functional programming languages include Haskell, Erlang, and Clojure, among others. Some languages like JavaScript, Python, and Ruby have functional capabilities even though they are not purely functional languages.
 
-## Pros and Cons
+## Pros & Cons
 
 Functional programming is great for tasks that require concurrent processing, real-time updates, and where the output is a simple transformation of the input. It can make your code more concise, easier to test, and more predictable. However, it can also have a steep learning curve for programmers coming from an imperative background and may not be the best fit for all types of problems.
