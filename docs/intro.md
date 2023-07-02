@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Intro
 
-Welcome to 'My Learning Paths,' your ultimate cheat sheet and refresher hub for everything from tech programming, blockchain, and data science, to AI, game development, and beyond.
+Welcome to **'My Learning Paths,'** the ultimate cheat sheet and refresher hub for everything from tech programming, blockchain, and data science, to AI, game development, and beyond.
 
 ## Getting Started
 
