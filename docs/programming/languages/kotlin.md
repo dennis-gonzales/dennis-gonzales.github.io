@@ -1,0 +1,25 @@
+# Kotlin
+
+Kotlin is a **statically typed, cross-platform, general-purpose** programming language with type inference. It's developed and maintained by JetBrains, the company behind the IntelliJ IDEA, a popular IDE for Java. Kotlin is **designed to interoperate fully with Java**, and the JVM version of Kotlin's standard library depends on the Java Class Library, but type inference allows its syntax to be more concise.
+
+Kotlin mainly targets the JVM but also compiles to JavaScript (e.g., for frontend web development) or native code (via LLVM); this makes it a multi-platform language.
+
+## Key Features
+
+Here are some key features of Kotlin:
+
+1. **Null Safety:** Kotlin solves the infamous null reference problem by distinguishing nullable and non-nullable types in the type system itself. This helps to prevent null pointer exceptions, a common bug in many programming languages.
+
+2. **Interoperability:** Kotlin is fully interoperable with Java, which means that you can use all existing Java libraries, JVM frameworks, and even the existing code in Kotlin applications. This makes it a good choice for companies and projects that have a large Java codebase.
+
+3. **Expressiveness:** Kotlin has a more expressive syntax than Java, which can make code written in Kotlin more concise and readable. This includes features like data classes, lambdas, and extension functions.
+
+4. **Coroutines:** Kotlin has built-in support for coroutines, which makes it easier to write asynchronous and non-blocking code. This is particularly useful for tasks like network I/O, file I/O, and other types of I/O operations.
+
+5. **Scripting:** Kotlin can also be used as a scripting language. It's not necessary to define a full class with a main method; you can just start with the code execution.
+
+6. **Tooling:** Since Kotlin is developed by JetBrains, it has excellent support in IntelliJ IDEA and in other IDEs like Android Studio.
+
+## Pros
+
+Kotlin is often used for Android app development, and Google announced in 2019 that it's a preferred language for Android app developers. However, its use is not limited to Android development, and it can also be used for backend development, desktop development, and in other areas.
