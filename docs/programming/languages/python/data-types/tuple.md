@@ -44,6 +44,8 @@ print(type(a_tuple))  # Outputs <class 'tuple'>
 
 Because tuples are immutable, they're useful for storing a sequence of elements that shouldn't change throughout the course of your program.
 
+Tuples are not as flexible as lists because once you create a tuple, you cannot change its contents. However, this feature is advantageous in some situations. For instance, if a function is using a set of values that must not change, using a tuple can prevent accidental modification of those values, which could otherwise lead to bugs or incorrect results.
+
 ### Unpacking
 
 Tuples are commonly used for multiple assignment (also called unpacking).

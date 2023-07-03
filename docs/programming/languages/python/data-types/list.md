@@ -68,6 +68,10 @@ for element in my_list:
     print(element)
 ```
 
+### Avoid Large Numerical Data
+
+If you're working with large amounts of numerical data, a Python list might not be the best choice. Libraries like NumPy provide specialized data structures that are more efficient for numerical data.
+
 ## Design Patterns
 
 While there are no specific design patterns centered around lists, lists are a fundamental data structure in Python and are used in many different contexts. For example:
@@ -83,6 +87,12 @@ print(stack.pop())  # Pop - Outputs 6
 ```
 
 In Python, the `list` data type provides methods such as `append()` and `pop()` which can be used to implement the behavior of a stack. For example, you can use `append()` to push an item onto the stack and `pop()` to remove an item from the top of the stack. This is efficient because both operations are O(1), meaning they take the same amount of time regardless of the size of the list.
+
+:::info
+Popping at **arbitrary positions** can be much slower (O(n)):
+
+When you pop from the end of a list, it's O(1). When you pop from anywhere else in the list, it's O(n).
+:::
 
 :::info
 While lists in Python can be used to implement stack operations efficiently, for larger and more complex applications where both queue and stack operations are needed, using collections like `deque` would be more efficient and versatile.
