@@ -1,0 +1,58 @@
+---
+sidebar_position: 2
+---
+
+import DocCardList from '@theme/DocCardList';
+
+# Data Types
+
+Python has several built-in data types, including:
+
+- **Numeric types:** These include integer [(int)](./data-types/int), floating point number [(float)](./data-types/float), and complex number [(complex)](./data-types/complex).
+- **Sequence types:** These include string [(str)](./data-types/str), [list](./data-types/list), and [tuple](./data-types/tuple). Sequences are ordered collections of items.
+- **Mapping type:** The dictionary [(dict)](./data-types/dict) is a data type used for mappings. Dictionaries store key-value pairs.
+- **Set types:** Sets [(set)](./data-types/set) and frozen sets [(frozenset)](./data-types/frozenset) are collections of unique elements. Sets are mutable, and frozen sets are immutable.
+- **Boolean type:** This [bool](./data-types/bool) type includes two values, True and False.
+- **Binary types:** These include [bytes](./data-types/bytes), [bytearray](./data-types/bytearray), and [memoryview](./data-types/memoryview). They are used for manipulating binary data.
+
+These are just a few examples. Each data type has its own characteristics and behavior.
+
+## Everything is an Object
+
+Everything in Python is an object, and that includes data types, classes and functions. The reason for this is rooted in Python's philosophy and design goals.
+
+Objects in Python come from a "blueprint" called a class, which defines their data and behaviors. Even built-in data types like integers, floats, and strings come from classes like `int`, `float`, and `str` respectively. These classes provide methods that you can use on instances of the class.
+
+For example, when you create an integer in Python:
+
+```python
+x = 7
+```
+
+What you're actually doing is creating an instance of the `int` class:
+
+```python
+x = int(7)
+```
+
+Once `x` is an instance of `int`, it has access to `int` methods, like `bit_length()`:
+
+```python
+print(x.bit_length())  # Outputs: 3
+```
+
+The same goes for other data types. When you create a string:
+
+```python
+s = "hello"
+```
+
+You're actually creating an instance of the `str` class, which gives s access to `str` methods, like `upper()`:
+
+```python
+print(s.upper())  # Outputs: "HELLO"
+```
+
+So in Python, everything - data types, functions, classes, etc. - is created from a class, which makes everything an object. This consistency is one of the reasons why Python is so user-friendly and versatile. It allows you to use the same set of rules (the rules of objects) for almost everything you do in the language.
+
+<DocCardList />

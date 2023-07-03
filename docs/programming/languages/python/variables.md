@@ -1,3 +1,8 @@
+---
+
+sidebar_position: 1
+---
+
 # Variables
 
 A variable is a named location used to store data in the memory. It is a way of referring to the memory location used by a computer program. Here is an example:
@@ -134,7 +139,7 @@ Do not use Python keywords as variable names. E.g. print, list, etc.
 
 Global variables can be changed anywhere in the program, which can lead to confusing code.
 
-:::info Notice
+:::info
 There may be situations where global variables are necessary or useful, such as when sharing data across multiple modules or when implementing certain design patterns. In such cases, it is important to use global variables judiciously and consider the potential impacts on code clarity and maintainability.
 :::
 
