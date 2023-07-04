@@ -86,7 +86,8 @@ Please note that instances of user-defined classes are hashable by default as th
 
 #### **Related Links:**
 
-- [Mutable vs Immutable Types](../variables#mutable-vs-immutable-types)
+- [Mutable vs Immutable Types](../data-types#mutable-vs-immutable-types)
+- [Hashability of Tuples](../data-types#hashability-of-tuples)
 
 ## Common Pitfalls
 

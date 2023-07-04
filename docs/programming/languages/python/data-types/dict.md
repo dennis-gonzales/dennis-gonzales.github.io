@@ -67,7 +67,7 @@ Dictionaries themselves are not hashable because they are mutable i.e., they can
 
 #### **Related Links:**
 
-- [Hashability in Python](../variables#hashability-in-python)
+- [Hashability in Python](../data-types#hashability-in-python)
 - [Tuple Hashability](./tuple#hashability)
 - [Unhashable Keys](./dict#unhashable-keys)
 

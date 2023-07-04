@@ -14,64 +14,65 @@ age = 30
 
 In the example above, `name` and `age` are variables that hold values `"John Doe"` and `30` respectively.
 
-## Mutable vs Immutable Types
+## Memory
 
-Some Python objects like lists, dictionaries, and sets are mutable, meaning their contents or state can be changed after they are created. On the other hand, some Python objects like integers, floats, strings, and tuples are immutable, meaning their content can't be changed after they are created.
+In Python, variables don't contain the data itself, but a reference to the data in memory. This becomes especially important when working with mutable types like lists and dictionaries.
 
-### Hashability in Python
+### Memory Reference
 
-In Python, "hashability" refers to the ability of an object to be used as a key in a dictionary or as an element in a set. Both of these data structures require their elements or keys to be unique and immutable (unchanging over their lifetime).
-
-The term "hashable" essentially describes any object that can have a fixed integer representation, calculated by a hash function, that is unique for that object and does not change over its lifetime. In Python, the built-in `hash()` function is used to calculate this integer representation.
-
-A hashable object has two requirements:
-
-1. **It should have a hash value that remains constant throughout its lifetime.** This is why immutable types (like integers, floats, strings, and tuples) are hashable, while mutable types (like lists, dictionaries, and sets) are not. Mutable types can change their values, which means their hash value could also change.
-2. **It should be able to be compared to other objects.** This means the object needs an `__eq__()` method, which is used for equality comparison. If two objects compare equal (i.e., `a == b` is `True`), their hash values must also be equal.
-
-### Hashability of Tuples
-
-In Python, tuples are immutable, but this doesn't automatically make all tuples hashable. A tuple is only hashable if all its elements are also hashable.
-
-Consider the following examples:
-
-1. A tuple of integers is hashable because integers are immutable and therefore hashable:
+   When you create a list:
 
    ```python
-   t = (1, 2, 3)
-   print(hash(t))  # This will print a hash value
+   list1 = [1, 2, 3, 4, 5]
    ```
 
-2. A tuple of strings is also hashable:
+   `list1` doesn't hold the data `[1, 2, 3, 4, 5]`, but rather a reference to where that data is stored in memory.
+
+### Assigning Variables
+
+   If you then create a new variable and assign it as:
 
    ```python
-   t = ('apple', 'banana', 'cherry')
-   print(hash(t))  # This will print a hash value
+   list2 = list1
    ```
 
-3. But a tuple that contains a list is not hashable because lists are mutable:
+   `list2` now points to the same memory location as `list1`. They're like two names for the same thing. This is often described as "list1 and list2 are two different names pointing to the same list object".
+
+### Changing Mutable Types
+
+   If you change an element of `list2`:
 
    ```python
-   t = (1, 2, [3, 4, 5])
-   print(hash(t))  # This will raise a TypeError
+   list2[0] = 10
    ```
 
-In the last example, `hash(t)` raises a `TypeError` because the tuple contains a list, which is not hashable.
+   Because `list2` points to the same memory location as `list1`, you've changed the underlying list that both `list1` and `list2` are referencing. So if you print `list1`, you'll see the change:
 
-### How the `hash()` Function Works
+   ```python
+   print(list1)  # prints [10, 2, 3, 4, 5]
+   ```
 
-When you call `hash()` on an object, Python internally calls the `__hash__()` method for that object. For a tuple, this method works by iterating over all the elements of the tuple and calling their `__hash__()` methods. It then combines these hash values in a certain way to generate a new hash value.
+   This is not what you might expect if you're thinking of `list1` and `list2` as separate entities.
 
-If any element of the tuple does not have a `__hash__()` method (i.e., if it is not hashable), Python will raise a `TypeError`.
+### Copying Mutable Types
 
-To summarize, a Python object is hashable if it is immutable and if it can be compared to other objects for equality. For tuples, all elements also have to be hashable for the tuple itself to be hashable. Hashable objects are mainly used as dictionary keys and set elements because these data structures require their elements to be unique and immutable.
+   To avoid this, you can create a copy of the list. One way to do this is using the `copy()` method:
 
-#### **Related Links:**
+   ```python
+   list2 = list1.copy()
+   ```
 
-- [Immutability](./variables#immutability)
-- [Tuple Hashability](./data-types/tuple#hashability)
-- [Dictionary Immutable Keys](./data-types/dict#immutable-keys)
-- [Data Types Classification](./data-types#data-types-classification)
+   Now `list2` is a new list that has the same elements as `list1`, but it's a separate object in memory. Changes to `list2` won't affect `list1`.
+
+   You can also use slicing to create a copy:
+
+   ```python
+   list2 = list1[:]
+   ```
+
+   The `[:]` is a slice that includes all elements of the list, effectively creating a new list that's a copy of `list1`.
+
+   With either of these methods, `list1` and `list2` are now separate objects in memory. Changes to one don't affect the other.
 
 ## Common Pitfalls
 

@@ -80,7 +80,7 @@ This restriction is by design, because it allows lists to be used in ways that h
 
 #### **Related Links:**
 
-- [Mutable vs Immutable Types](../variables#mutable-vs-immutable-types)
+- [Mutable vs Immutable Types](../data-types#mutable-vs-immutable-types)
 
 ## Common Pitfalls
 
