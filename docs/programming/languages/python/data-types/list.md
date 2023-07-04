@@ -23,6 +23,65 @@ my_list[0] = "Goodbye"  # Change element
 print(my_list)  # Outputs ["Goodbye", 3.14, "World"]
 ```
 
+## Understanding List
+
+A Python list can hold any data type. That includes built-in types like integers, floats, strings, and other collections like tuples, sets, and dictionaries, as well as instances of user-defined classes.
+
+Here is an example of a list holding different data types:
+
+```python
+# Standard built-in types
+list1 = [1, 2.2, "three", True]
+
+# Complex types
+list2 = [[1, 2, 3], {"key": "value"}, (4, 5, 6), {7, 8, 9}]
+```
+
+### User-Defined Types
+
+Here's an example with user-defined classes:
+
+```python
+# User-defined types
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+p1 = Person("Alice", 25)
+p2 = Person("Bob", 30)
+list3 = [p1, p2]  # This is a list containing Person objects
+```
+
+### Nesting
+
+Yes, a Python list can hold nested lists:
+
+```python
+# Nested lists
+list4 = [1, 2, [3, 4, 5], 6, 7]
+
+```
+
+### Unhashable
+
+It's important to note that while lists can contain almost any type of data, lists themselves are not hashable.
+
+list is mutable, meaning its contents can change after it is created. This violates one of the requirements for an object to be hashable, which is that the object's hash value must not change during its lifetime.
+
+If you try to hash a list, you'll get a `TypeError`:
+
+```python
+my_list = [1, 2, 3]
+print(hash(my_list))  # This will raise a TypeError: unhashable type: 'list'
+```
+
+This restriction is by design, because it allows lists to be used in ways that hashable types cannot. For example, you can append, insert, or remove elements from a list, or change the value of its elements, none of which would be possible if the list were hashable.
+
+#### **Related Links:**
+
+- [Mutable vs Immutable Types](../variables#mutable-vs-immutable-types)
+
 ## Common Pitfalls
 
 ### Changing Lists During Iteration
@@ -37,9 +96,9 @@ Trying to access a list element that does not exist will result in an `IndexErro
 
 Default arguments in functions are created once at function definition. If a mutable object like a list is used as a default argument, it can retain changes between function calls.
 
-:::info
-Previously discussed in [**Variables**](../variables#mutable-default-argument) section.
-:::
+#### **Related Links:**
+
+- [Mutable Default Arguments](../variables#mutable-default-argument)
 
 ## Best Practices
 

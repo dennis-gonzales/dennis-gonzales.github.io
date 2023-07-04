@@ -14,6 +14,63 @@ You can access elements of a dictionary by their key:
 print(my_dict["name"])  # Outputs "John"
 ```
 
+## Understanding Dictionary
+
+In Python, a dictionary can hold any type of data as its values including, but not limited to, integers, floats, strings, lists, sets, tuples, and other dictionaries. It can also hold objects and user-defined classes. However, the keys must be of an immutable data type such as strings, numbers, or tuples.
+
+Here is a code example:
+
+```python title="main.py"
+class MyClass:
+    def __init__(self, x):
+        self.x = x
+
+obj = MyClass(10)
+
+my_dict = {
+    "integer": 10,
+    "float": 3.14,
+    "string": "hello",
+    "list": [1, 2, 3],
+    "set": {1, 2, 3},
+    "tuple": (1, 2, 3),
+    "nested_dict": {"key": "value"},
+    "object": obj
+}
+
+print(my_dict["integer"])  # Outputs: 10
+print(my_dict["float"])  # Outputs: 3.14
+print(my_dict["string"])  # Outputs: "hello"
+print(my_dict["list"])  # Outputs: [1, 2, 3]
+print(my_dict["set"])  # Outputs: {1, 2, 3}
+print(my_dict["tuple"])  # Outputs: (1, 2, 3)
+print(my_dict["nested_dict"])  # Outputs: {"key": "value"}
+print(my_dict["object"].x)  # Outputs: 10
+```
+
+### Immutable Keys
+
+For dictionary keys, they need to be immutable types because dictionaries use these keys' hash value for faster lookup. In Python, strings, numbers, tuples, and frozensets are examples of immutable types that can be used as keys.
+
+```python title="main.py"
+my_dict = {
+    "string": "value",
+    10: "value",
+    (1, 2): "value",
+    frozenset([1, 2, 3]): "value"
+}
+```
+
+### Unhashable
+
+Dictionaries themselves are not hashable because they are mutable i.e., they can be changed after they are created. This means you can't use a dictionary as a key to another dictionary. However, if you need a hashable version of a dictionary, consider using a `frozenset` or create a custom class and define a `__hash__` method.
+
+#### **Related Links:**
+
+- [Hashability in Python](../variables#hashability-in-python)
+- [Tuple Hashability](./tuple#hashability)
+- [Unhashable Keys](./dict#unhashable-keys)
+
 ## Common Pitfalls
 
 ### KeyError
@@ -32,7 +89,7 @@ The basic types like integers, floating-point numbers, and strings are hashable.
 
 For example:
 
-```python
+```python title="main.py"
 d = {}  # Create an empty dictionary
 
 # Integer key
@@ -54,7 +111,7 @@ print(d)  # Outputs: {1: 'one', 'two': 2, 3.0: 'three', (1, 2, 3): 'tuple'}
 
 However, lists, sets, and dictionaries are not hashable because their contents can change over time (they are mutable). If you try to use a list as a dictionary key, you will get a TypeError:
 
-```python
+```python title="main.py"
 # This will raise a TypeError
 d[[1, 2, 3]] = "list"
 ```
@@ -62,6 +119,10 @@ d[[1, 2, 3]] = "list"
 The error message will be "TypeError: unhashable type: 'list'".
 
 Tuples are an exception. They are immutable so they are hashable, but they can only be used as dictionary keys if they contain only strings, numbers, or tuples, all of which are hashable themselves.
+
+#### **Related Links:**
+
+- [Unhashable](./dict#unhashable)
 
 ### Modifying During Iteration
 
@@ -79,7 +140,7 @@ In the context of a Python dictionary, this is possible because it's implemented
 
 For example:
 
-```python
+```python title="main.py"
 # Creating a dictionary
 d = {"apple": 1, "banana": 2, "cherry": 3}
 
