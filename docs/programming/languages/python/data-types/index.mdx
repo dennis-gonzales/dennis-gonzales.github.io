@@ -49,12 +49,12 @@ So when we say that something is immutable, it means that its state cannot be mo
 :::caution
 Changing the value of a mutable type (like a list or dictionary) can sometimes have unintended consequences.
 
-This is because when you create a variable that's based on another, Python often just points the new variable to the old memory location, rather than creating a new memory location
+This is because when you create a variable that's based on another, Python often just points the new variable to the old memory location, rather than creating a new memory location.
 :::
 
-#### **Related Links:**
+**Related Links:**
 - [Variable Immutability](./variables#immutability)
-- [Variable Memory](./variables#memory)
+- [Reference Assignment](./variables#reference-assignment)
 
 ## Mutable vs Immutable Types
 
@@ -108,7 +108,7 @@ If any element of the tuple does not have a `__hash__()` method (i.e., if it is 
 
 To summarize, a Python object is hashable if it is immutable and if it can be compared to other objects for equality. For tuples, all elements also have to be hashable for the tuple itself to be hashable. Hashable objects are mainly used as dictionary keys and set elements because these data structures require their elements to be unique and immutable.
 
-#### **Related Links:**
+**Related Links:**
 
 - [Variable Immutability](./variables#immutability)
 - [Tuple Hashability](./data-types/tuple#hashability)

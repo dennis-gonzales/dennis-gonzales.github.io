@@ -120,7 +120,7 @@ The error message will be "TypeError: unhashable type: 'list'".
 
 Tuples are an exception. They are immutable so they are hashable, but they can only be used as dictionary keys if they contain only strings, numbers, or tuples, all of which are hashable themselves.
 
-#### **Related Links:**
+**Related Links:**
 
 - [Unhashable](./dict#unhashable)
 
@@ -132,7 +132,7 @@ Modifying the size of a dictionary while iterating over it can lead to unexpecte
 
 Default arguments in functions are created once at function definition. If a mutable object like a list is used as a default argument, it can retain changes between function calls.
 
-#### **Related Links:**
+**Related Links:**
 
 - [Mutable Default Arguments](../variables#mutable-default-argument)
 

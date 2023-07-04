@@ -14,65 +14,69 @@ age = 30
 
 In the example above, `name` and `age` are variables that hold values `"John Doe"` and `30` respectively.
 
-## Memory
+## Reference Assignment
 
 In Python, variables don't contain the data itself, but a reference to the data in memory. This becomes especially important when working with mutable types like lists and dictionaries.
 
 ### Memory Reference
 
-   When you create a list:
+When you create a list:
 
-   ```python
-   list1 = [1, 2, 3, 4, 5]
-   ```
+```python title="main.py"
+list1 = [1, 2, 3, 4, 5]
+```
 
-   `list1` doesn't hold the data `[1, 2, 3, 4, 5]`, but rather a reference to where that data is stored in memory.
+`list1` doesn't hold the data `[1, 2, 3, 4, 5]`, but rather a reference to where that data is stored in memory.
 
 ### Assigning Variables
 
-   If you then create a new variable and assign it as:
+If you then create a new variable and assign it as:
 
-   ```python
-   list2 = list1
-   ```
+```python title="main.py"
+list2 = list1
+```
 
-   `list2` now points to the same memory location as `list1`. They're like two names for the same thing. This is often described as "list1 and list2 are two different names pointing to the same list object".
+`list2` now points to the same memory location as `list1`. They're like two names for the same thing. This is often described as "list1 and list2 are two different names pointing to the same list object".
 
 ### Changing Mutable Types
 
-   If you change an element of `list2`:
+If you change an element of `list2`:
 
-   ```python
-   list2[0] = 10
-   ```
+```python title="main.py"
+list2[0] = 10
+```
 
-   Because `list2` points to the same memory location as `list1`, you've changed the underlying list that both `list1` and `list2` are referencing. So if you print `list1`, you'll see the change:
+Because `list2` points to the same memory location as `list1`, you've changed the underlying list that both `list1` and `list2` are referencing. So if you print `list1`, you'll see the change:
 
-   ```python
-   print(list1)  # prints [10, 2, 3, 4, 5]
-   ```
+```python title="main.py"
+print(list1)  # prints [10, 2, 3, 4, 5]
+```
 
-   This is not what you might expect if you're thinking of `list1` and `list2` as separate entities.
+This is not what you might expect if you're thinking of `list1` and `list2` as separate entities.
 
 ### Copying Mutable Types
 
-   To avoid this, you can create a copy of the list. One way to do this is using the `copy()` method:
+To avoid this, you can create a copy of the list. One way to do this is using the `copy()` method:
 
-   ```python
-   list2 = list1.copy()
-   ```
+```python title="main.py"
+list2 = list1.copy()
+```
 
-   Now `list2` is a new list that has the same elements as `list1`, but it's a separate object in memory. Changes to `list2` won't affect `list1`.
+Now `list2` is a new list that has the same elements as `list1`, but it's a separate object in memory. Changes to `list2` won't affect `list1`.
 
-   You can also use slicing to create a copy:
+You can also use slicing to create a copy:
 
-   ```python
-   list2 = list1[:]
-   ```
+```python title="main.py"
+list2 = list1[:]
+```
 
-   The `[:]` is a slice that includes all elements of the list, effectively creating a new list that's a copy of `list1`.
+The `[:]` is a slice that includes all elements of the list, effectively creating a new list that's a copy of `list1`.
 
-   With either of these methods, `list1` and `list2` are now separate objects in memory. Changes to one don't affect the other.
+With either of these methods, `list1` and `list2` are now separate objects in memory. Changes to one don't affect the other.
+
+**Related Links:**
+
+- [Data Types](./data-types)
 
 ## Common Pitfalls
 

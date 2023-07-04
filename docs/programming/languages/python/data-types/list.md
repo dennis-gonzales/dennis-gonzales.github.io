@@ -78,7 +78,7 @@ print(hash(my_list))  # This will raise a TypeError: unhashable type: 'list'
 
 This restriction is by design, because it allows lists to be used in ways that hashable types cannot. For example, you can append, insert, or remove elements from a list, or change the value of its elements, none of which would be possible if the list were hashable.
 
-#### **Related Links:**
+**Related Links:**
 
 - [Mutable vs Immutable Types](../data-types#mutable-vs-immutable-types)
 
@@ -96,7 +96,7 @@ Trying to access a list element that does not exist will result in an `IndexErro
 
 Default arguments in functions are created once at function definition. If a mutable object like a list is used as a default argument, it can retain changes between function calls.
 
-#### **Related Links:**
+**Related Links:**
 
 - [Mutable Default Arguments](../variables#mutable-default-argument)
 

@@ -106,7 +106,7 @@ print(t)  # Outputs (1, [2, 3, 5], 4)
 Tuples containing non-hashable elements are not suitable for use as keys in dictionaries or elements in sets, which require hashable objects.
 :::
 
-#### **Related Links:**
+**Related Links:**
 
 - [Hashability](./tuple#hashability)
 
