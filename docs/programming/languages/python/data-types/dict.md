@@ -128,6 +128,14 @@ Tuples are an exception. They are immutable so they are hashable, but they can o
 
 Modifying the size of a dictionary while iterating over it can lead to unexpected results or errors.
 
+### Mutable Default Arguments
+
+Default arguments in functions are created once at function definition. If a mutable object like a list is used as a default argument, it can retain changes between function calls.
+
+#### **Related Links:**
+
+- [Mutable Default Arguments](../variables#mutable-default-argument)
+
 ## Best Practices
 
 ### Use for Lookups

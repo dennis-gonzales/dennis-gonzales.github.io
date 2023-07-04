@@ -17,6 +17,34 @@ Python has several built-in data types, including:
 
 These are just a few examples. Each data type has its own characteristics and behavior.
 
+## Data Types Classification
+
+Python data types can be classified as mutable or immutable.
+
+### Mutable
+
+- **Lists:** Lists are ordered collections of items that can be of different types. The elements in a list can be changed, added, and removed.
+- **Dictionaries:** Dictionaries store key-value pairs, and they can be modified. You can add new key-value pairs, change values, and remove key-value pairs.
+- **Sets:** Sets are collections of unique elements. You can add and remove elements from a set.
+- **Byte arrays:** Byte arrays are sequences of bytes that can be modified.
+
+### Immutable
+
+- **Integers:** Integers are whole numbers. They cannot be changed after they are created.
+- **Floating point numbers:** Floating point numbers (floats) represent real numbers and are also immutable.
+- **Complex numbers:** Complex numbers are like floats, but they also have an imaginary part. They're also immutable.
+- **Strings:** Strings are sequences of characters. Once a string is created, it cannot be changed.
+- **Tuples:** Tuples are like lists, but they are immutable. Once a tuple is created, it cannot be changed.
+- **Frozensets:** Frozensets are like sets, but they're immutable. Once a frozenset is created, it can't be changed.
+- **Booleans:** Booleans represent truth values and are immutable.
+- **Bytes:** Bytes objects are sequences of single bytes. Once a bytes object is created, it cannot be modified.
+- **Memoryview:** These are generalized buffers for binary data in memory. While the data they point to can be mutable, the memoryview itself is considered immutable.
+
+Note that the mutability of a variable doesn't change the identity of the variable itself, only its contents. So when we say that something is immutable, it means that its state cannot be modified after it's created. If you want to change it, you actually create a new object. For mutable objects, you can change their state without creating a new object.
+
+#### **Related Links:**
+- [Immutability](./variables#immutability)
+
 ## Everything is an Object
 
 Everything in Python is an object, and that includes data types, classes and functions. The reason for this is rooted in Python's philosophy and design goals.

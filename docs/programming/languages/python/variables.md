@@ -71,6 +71,7 @@ To summarize, a Python object is hashable if it is immutable and if it can be co
 - [Immutability](./variables#immutability)
 - [Tuple Hashability](./data-types/tuple#hashability)
 - [Dictionary Immutable Keys](./data-types/dict#immutable-keys)
+- [Data Types Classification](./data-types#data-types-classification)
 
 ## Common Pitfalls
 
