@@ -1,0 +1,62 @@
+---
+sidebar_position: 1
+---
+
+import DocCardList from '@theme/DocCardList';
+
+# Collections
+
+Collections in Kotlin are a set of interfaces and classes that provide high-performance, feature-rich manipulation of data sets. Collections include Lists, Sets, and Maps.
+
+## List
+
+A [List](./collections/lists) in Kotlin is an ordered collection of items. Lists can contain duplicate elements. Lists in Kotlin are created using the `listOf`, `mutableListOf`, `arrayListOf` functions.
+
+```kotlin title="ListExample.kt"
+val numbers = listOf(1, 2, 3, 4, 5)
+println(numbers) // Prints: [1, 2, 3, 4, 5]
+```
+
+## Set
+
+A [Set](./collections/sets) in Kotlin is a collection of items that cannot contain duplicate elements. It's useful when you want to store a collection of distinct elements.
+
+```kotlin title="SetExample.kt"
+val numbers = setOf(1, 2, 3, 2, 1)
+println(numbers) // Prints: [1, 2, 3]
+```
+
+## Map
+
+A [Map](./collections/maps) in Kotlin is a collection of key-value pairs. Each key is unique, and each key maps to exactly one value. The values can be duplicates.
+
+```kotlin title="MapExample.kt"
+val numbers = mapOf("one" to 1, "two" to 2, "three" to 3)
+println(numbers["two"]) // Prints: 2
+```
+
+## Common Pitfalls and Best Practices
+
+### Immutable vs Mutable Collections
+
+Kotlin distinguishes between mutable and immutable collections (read-only). It's a good practice to use read-only versions of collections whenever possible.
+
+### Avoid Premature Optimization
+
+Kotlin collections are designed to be efficient and performant, but premature optimization can lead to code that's harder to read and maintain. Always strive for readability and use more optimized collections or operations only when necessary.
+
+### Null Safety with Collections
+
+Kotlin's type system is designed to eliminate null pointer exceptions, but if you're not careful, you can still run into problems with null. When working with collections, be aware of functions that can return null.
+
+## Design Patterns
+
+In the context of design patterns, collections are used in almost every pattern, but here are a few notable uses:
+
+- In the Composite pattern, an object is built from other objects. These 'child' objects are typically stored in a collection within the 'parent' object.
+- In the Observer pattern, the subject keeps a collection of observers.
+- Many of the behavioral design patterns use collections to store and manage objects.
+
+In general, Kotlin's powerful and flexible collection library allows you to solve a wide variety of problems in an elegant and expressive way. Understanding how to use collections effectively is a critical skill in Kotlin programming.
+
+<DocCardList />
