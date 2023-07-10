@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'My Learning Paths',
-  tagline: 'Ah yes, finally a documentation of what I have learned.',
+  tagline: 'Ah Yes, Finally a Documentation of What I Have Learned.',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -50,7 +50,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/dennis-gonzales/dennis-gonzales.github.io/blob/main/',
         },
         blog: false, // Optional: disable the blog plugin
         // blog: {
@@ -87,7 +87,7 @@ const config = {
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/dennis-gonzales/dennis-gonzales.github.io/',
             label: 'GitHub',
             position: 'right',
           },
@@ -106,19 +106,15 @@ const config = {
             ],
           },
           {
-            title: 'Community',
+            title: 'Social Media',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
                 label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                href: 'https://twitter.com/dnnsgnzls',
+              },
+                            {
+                label: 'Instagram',
+                href: 'https://www.instagram.com/dnns.gnzls',
               },
             ],
           },
@@ -131,12 +127,12 @@ const config = {
           //     },
           //     {
           //       label: 'GitHub',
-          //       href: 'https://github.com/facebook/docusaurus',
+          //       href: 'https://github.com/dennis-gonzales/dennis-gonzales.github.io/',
           //     },
           //   ],
           // },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} My Learning Paths Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
