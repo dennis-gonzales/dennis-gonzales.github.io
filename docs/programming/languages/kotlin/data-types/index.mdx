@@ -1,0 +1,143 @@
+---
+sidebar_position: 2
+---
+
+import DocCardList from '@theme/DocCardList';
+
+# Data Types
+
+Kotlin is a statically typed programming language developed by JetBrains. It is officially supported by Google for Android application development and has gained massive popularity due to its interoperability with Java, modern syntax, and null safety.
+
+Kotlin supports a variety of data types that make it powerful and flexible. Let's dive into these data types one by one.
+
+## Numeric Types
+
+Numeric types in Kotlin are similar to most other languages. The numeric types include Byte, Short, Int, Long, Float, and Double.
+
+```kotlin title="NumericTypes.kt"
+fun main() {
+    val byte: Byte = 127
+    val short: Short = 32767
+    val int: Int = 2147483647
+    val long: Long = 9223372036854775807
+    val float: Float = 3.14F
+    val double: Double = 3.141592653589793
+}
+```
+
+## Char and Boolean
+
+Char represents a single character and Boolean represents either true or false.
+
+```kotlin title="CharBooleanTypes.kt"
+fun main() {
+    val char: Char = 'A'
+    val boolean: Boolean = true
+}
+```
+
+## String
+
+A String in Kotlin is an immutable sequence of characters.
+
+```kotlin title="StringType.kt"
+fun main() {
+    val string: String = "Hello, World!"
+}
+```
+
+## Arrays
+
+An Array in Kotlin is a container that holds data (elements) of the same type. Array size is defined at the time of creation, and it can't be changed.
+
+```kotlin title="ArrayTypes.kt"
+fun main() {
+    val intArray: Array<Int> = arrayOf(1, 2, 3)
+    val stringArray: Array<String> = arrayOf("Kotlin", "Java", "Python")
+}
+```
+
+## Nullable Types
+
+One of Kotlin's most distinguishing features is its built-in null safety. By default, variables cannot hold a null value. To allow nulls, we can declare a variable as nullable by appending a "?" to the type.
+
+```kotlin title="NullableTypes.kt"
+fun main() {
+    var nullableString: String? = "Hello, World!"
+    nullableString = null
+}
+```
+
+## Collections
+
+Kotlin has rich support for collections, and it distinguishes between mutable and immutable collections (read-only). The most commonly used collections are List, Set, and Map.
+
+```kotlin title="CollectionTypes.kt"
+fun main() {
+    val list: List<Int> = listOf(1, 2, 3)
+    val set: Set<Int> = setOf(1, 2, 3)
+    val map: Map<Int, String> = mapOf(1 to "Kotlin", 2 to "Java", 3 to "Python")
+}
+```
+
+## Common Pitfalls and Best Practices
+
+### Overflows
+
+For numeric types, a common pitfall is the overflow and underflow problem.
+
+```kotlin title="Overflow.kt"
+fun main() {
+    val a: Int = Int.MAX_VALUE
+    println(a + 1) // It will overflow
+}
+```
+
+To avoid overflows, always be aware of the range of data types and handle edge cases properly.
+
+### Null Safety
+
+For nullable types, the most common pitfall is NullPointerException, which occurs when you try to access a property or function on a null object.
+
+```kotlin title="NullSafety.kt"
+fun main() {
+    var nullableString: String? = null
+    println(nullableString!!.length) // It will throw NullPointerException
+}
+```
+
+To avoid NullPointerException, always check for null before accessing properties or functions, or use safe calls (`?.`), Elvis operator (`?:`), etc.
+
+### Immutable Collections
+
+Using mutable collections when not necessary can lead to errors. It's a good practice to use immutable collections to preserve immutability.
+
+```kotlin title="ImmutableCollections.kt"
+fun main() {
+    val list = listOf(1, 2, 3)
+    // list.add(4) // This will throw an error
+}
+```
+
+### String Concatenation
+
+It's better to use string templates or the `StringBuilder` class for string concatenation instead of using the `+` operator, especially inside loops. This is because strings are immutable, and concatenation creates new objects, which can lead to memory inefficiency.
+
+```kotlin title="StringConcatenation.kt"
+fun main() {
+    val name = "Kotlin"
+    val message = "Hello, $name"
+}
+```
+
+## Design Patterns
+
+While there are no specific design patterns solely for data types, understanding and using data types effectively is crucial in many design patterns. For example:
+
+- The Factory Method pattern can have different methods for creating different data types.
+- The Strategy pattern may use different data types as part of its strategy interface.
+- The State pattern may use a data type (like an enum) to represent different states.
+
+Understanding data types is the first step towards mastering Kotlin and Android development. They provide the foundation for understanding the language's more advanced features, like classes and functions.
+
+<DocCardList />

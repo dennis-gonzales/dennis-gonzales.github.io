@@ -1,0 +1,109 @@
+---
+sidebar_position: 3
+---
+
+import DocCardList from '@theme/DocCardList';
+
+# Functions
+
+Functions in Kotlin are declared using the `fun` keyword. Functions allow you to break your code into reusable pieces, making it more readable and modular. 
+
+## Defining a Function
+
+A function is defined with the `fun` keyword, followed by the function name, a list of zero or more comma-separated parameters, an optional return type, and a body.
+
+```kotlin title="FunctionDefinition.kt"
+fun greet(): Unit {
+    println("Hello, World!")
+}
+```
+
+In the above example, `greet` is a function that takes no parameters, returns no meaningful value (its return type is `Unit`, which can be omitted), and prints "Hello, World!" when called.
+
+## Function Parameters
+
+Functions can take parameters, allowing you to pass data into them. Parameters are defined in the function signature inside parentheses after the function name.
+
+```kotlin title="FunctionParameters.kt"
+fun greet(name: String): Unit {
+    println("Hello, $name!")
+}
+```
+
+In the above example, the `greet` function takes one parameter: `name` of type `String`.
+
+## Function Return Values
+
+Functions can return a value, which can be used elsewhere in your code. The return type is declared after the parameters, and the `return` keyword is used to specify the return value.
+
+```kotlin title="FunctionReturn.kt"
+fun add(a: Int, b: Int): Int {
+    return a + b
+}
+```
+
+In the above example, the `add` function takes two parameters (both of type `Int`) and returns an `Int`.
+
+## Default Arguments
+
+Kotlin supports default argument values assigned in the function signature. If a value is not provided when calling the function, the default value is used.
+
+```kotlin title="DefaultArguments.kt"
+fun greet(name: String = "World"): Unit {
+    println("Hello, $name!")
+}
+```
+
+## Named Arguments
+
+When calling a function, Kotlin allows you to specify argument names. This is particularly useful when a function has many parameters or default values.
+
+```kotlin title="NamedArguments.kt"
+fun personInfo(name: String, age: Int, city: String) {
+    println("$name is $age years old and lives in $city.")
+}
+
+fun main() {
+    personInfo(age = 30, city = "New York", name = "John")
+}
+```
+
+## Common Pitfalls and Best Practices
+
+### Overusing Default Arguments
+
+Overuse of default arguments can make function calls confusing and lead to bugs. If a function has many parameters with default values, it might be better to refactor the function or use a design pattern like Builder.
+
+### Single Expression Functions
+
+When a function returns a single expression, the curly braces can be omitted and the body is specified after a `=` symbol. It's a good practice to use this concise syntax when possible.
+
+```kotlin title="SingleExpressionFunction.kt"
+fun add(a: Int, b: Int) = a + b
+```
+
+### Documenting Functions
+
+It's a good practice to document your functions, especially if they are part of a public API. Kotlin uses KDoc notation, similar to Java's JavaDoc.
+
+```kotlin title="FunctionDocumentation.kt"
+/**
+ * Adds two integers together.
+ * @param a The first integer.
+ * @param b The second integer.
+ * @return The sum of a and b.
+ */
+fun add(a: Int, b: Int) = a + b
+```
+
+## Design Patterns
+
+In the context of design patterns, functions in Kotlin can be used in a variety of ways. Here are a few examples:
+
+- In the Strategy pattern, different strategies can be implemented as functions and passed around.
+- In the Observer pattern, callback functions can be used to notify observers.
+- In the Factory pattern, factory functions can be used to create objects.
+
+Functions are a fundamental part of Kotlin and understanding how to use them effectively is crucial to becoming a proficient Kotlin developer.
+
+<DocCardList />

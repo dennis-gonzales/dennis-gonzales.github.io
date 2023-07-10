@@ -1,0 +1,137 @@
+---
+sidebar_position: 4
+---
+
+import DocCardList from '@theme/DocCardList';
+
+# Classes
+
+A class in Kotlin is declared using the `class` keyword. Classes in Kotlin are used to create objects (instances) which contain data and functions. The data defined in the class are properties and the functions are member functions.
+
+## Defining a Class
+
+A class is defined with the `class` keyword, followed by its name.
+
+```kotlin title="ClassDefinition.kt"
+class Person {
+    // Class body goes here
+}
+```
+
+## Class Properties
+
+Classes can contain properties. A property is essentially a variable that belongs to the class.
+
+```kotlin title="ClassProperties.kt"
+class Person {
+    var name: String = ""
+    var age: Int = 0
+}
+```
+
+## Class Functions
+
+Classes can contain functions. These are called member functions.
+
+```kotlin title="ClassFunctions.kt"
+class Person {
+    var name: String = ""
+    var age: Int = 0
+
+    fun greet() {
+        println("Hello, my name is $name, and I am $age years old.")
+    }
+}
+```
+
+## Constructors
+
+Classes in Kotlin have a primary constructor and one or more secondary constructors. The primary constructor is part of the class header.
+
+```kotlin title="ClassConstructor.kt"
+class Person(val name: String, var age: Int) {
+    fun greet() {
+        println("Hello, my name is $name, and I am $age years old.")
+    }
+}
+```
+
+In the above example, `Person` has a primary constructor that takes a `String` and an `Int` as parameters. The `val` keyword in the constructor means that the passed parameter will also be a property of the class.
+
+## Inheritance
+
+In Kotlin, all classes inherit from the `Any` class by default. However, a class can inherit from another class using the `:` symbol. To make a class inheritable, you need to mark it with the `open` keyword.
+
+```kotlin title="ClassInheritance.kt"
+open class Animal {
+    fun eat() {
+        println("The animal is eating.")
+    }
+}
+
+class Dog : Animal() {
+    fun bark() {
+        println("The dog is barking.")
+    }
+}
+```
+
+## Any Class
+
+in Kotlin, every class you create implicitly inherits from a class called "Any". This class, similar to "Object" in Java, is the root of the Kotlin class hierarchy. 
+
+The "Any" class provides three methods: equals(), hashCode(), and toString(). Unless you define these methods yourself, every Kotlin class will have these three methods.
+
+Here's an example:
+
+```kotlin title="AnyClass.kt"
+class MyKotlinClass {
+    // Your code here
+}
+
+// Even though it's not explicitly stated, MyKotlinClass inherits from Any
+```
+
+## Common Pitfalls and Best Practices
+
+### Overriding Functions
+
+In Kotlin, you can override a function of a superclass in a subclass. To allow a function to be overridden, it must be marked with the `open` keyword in the superclass, and it must be marked with the `override` keyword in the subclass.
+
+```kotlin title="FunctionOverriding.kt"
+open class Animal {
+    open fun sound() {
+        println("The animal makes a sound.")
+    }
+}
+
+class Dog : Animal() {
+    override fun sound() {
+        println("The dog barks.")
+    }
+}
+```
+
+### Data Classes
+
+When creating a class that only holds data, it's a good practice to declare the class as a `data class`. This will automatically provide useful functions such as `toString()`, `equals()`, `hashCode()`, and `copy()`.
+
+```kotlin title="DataClass.kt"
+data class Person(val name: String, var age: Int)
+```
+
+### Class vs Type
+
+In Kotlin, a class is a blueprint or template for creating objects. A type is a classification of an object that determines how it can be used. Every class in Kotlin is also a type. However, Kotlin also has types that are not classes, such as nullable types, functional types, and type aliases.
+
+## Design Patterns
+
+In the context of design patterns, classes play a vital role in nearly every pattern. Here are a few examples:
+
+- In the Factory pattern, classes are created through factory methods.
+- In the Observer pattern, classes observe and react to changes in other classes.
+- In the Strategy pattern, a class delegates some behavior to another class.
+
+Understanding classes is essential for object-oriented programming in Kotlin. They provide the structure for building complex, well-organized programs.
+
+<DocCardList />

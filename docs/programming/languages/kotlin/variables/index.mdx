@@ -1,0 +1,115 @@
+---
+sidebar_position: 1
+---
+
+import DocCardList from '@theme/DocCardList';
+
+# Variables
+
+Variables in Kotlin are used to store data for processing. Kotlin provides two types of variables: mutable (which can be reassigned) and immutable (which cannot be reassigned once initialized).
+
+## Mutable Variables
+
+Mutable variables are declared using the `var` keyword. You can change the value of a mutable variable after it's been assigned.
+
+```kotlin title="MutableVariable.kt"
+fun main() {
+    var age = 30 // Initializing a mutable variable
+    println(age) // Prints: 30
+
+    age = 31 // Changing the value of the variable
+    println(age) // Prints: 31
+}
+```
+
+## Immutable Variables
+
+Immutable variables are declared using the `val` keyword. Once a value is assigned to a `val`, it cannot be reassigned.
+
+```kotlin title="ImmutableVariable.kt"
+fun main() {
+    val age = 30 // Initializing an immutable variable
+    println(age) // Prints: 30
+
+    // This will throw a compiler error
+    // age = 31 // Can't change the value of the variable
+}
+```
+
+## Variable Types
+
+Kotlin is a statically typed language. This means the type of every variable and expression is known at compile time. The compiler can infer the type of a variable from its initializer expression. However, you can explicitly specify the type if you want.
+
+```kotlin title="VariableTypes.kt"
+fun main() {
+    val name: String = "John" // Type is explicitly declared
+    val age = 30 // Type is inferred by the compiler
+}
+```
+
+## Late Initialization
+
+In Kotlin, non-null type variables must be initialized during declaration. However, if you want to delay the initialization, you can use the `lateinit` keyword. It's typically used for dependency injection or initializing a variable in a unit test setup method.
+
+```kotlin title="LateInitialization.kt"
+class MyTest {
+    lateinit var subject: TestSubject
+
+    @SetUp fun setup() {
+        subject = TestSubject()
+    }
+
+    @Test fun test() {
+        subject.method()  // dereference directly
+    }
+}
+```
+
+Please note that the `lateinit` modifier can only be used with `var`, and the variable must be non-null and non-primitive.
+
+## Common Pitfalls and Best Practices
+
+### Null Safety
+
+A common pitfall is attempting to assign or use a `null` value for non-nullable variables.
+
+```kotlin title="NullSafety.kt"
+fun main() {
+    var name: String = null // This will throw a compiler error
+}
+```
+
+To avoid this, make sure you initialize all non-nullable variables or declare them as nullable.
+
+### Accessing Uninitialized `lateinit`
+
+For `lateinit` variables, a common pitfall is accessing the variable before it's been initialized. This results in a `UninitializedPropertyAccessException`.
+
+```kotlin title="LateInitializationPitfall.kt"
+class MyTest {
+    lateinit var subject: TestSubject
+
+    @Test fun test() {
+        subject.method()  // Throws UninitializedPropertyAccessException
+    }
+}
+```
+
+To avoid this, always make sure you've initialized `lateinit` variables before using them.
+
+### Immutable Over Mutable
+
+It's a good practice to prefer using immutable variables (`val`) over mutable ones (`var`). This leads to safer and more predictable code.
+
+```kotlin title="ImmutableOverMutable.kt"
+fun main() {
+    val age = 30 // Prefer this
+    var mutableAge = 30 // Avoid this if not necessary
+}
+```
+
+## Design Patterns
+
+In the context of design patterns, variables play a role in many of them, but not explicitly. For instance, in the Singleton pattern, the instance is usually stored in a `var` or `val`. In the Observer pattern, the state to observe could be a `var`. But in these cases, it's not the variable itself that is important, but the pattern as a whole.
+
+<DocCardList />
