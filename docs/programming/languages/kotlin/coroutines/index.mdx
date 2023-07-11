@@ -1,0 +1,420 @@
+---
+sidebar_position: 5
+---
+
+import DocCardList from '@theme/DocCardList';
+
+# Coroutines
+
+Coroutines are a feature of Kotlin that allows writing asynchronous and non-blocking code in a sequential style. They are very lightweight, can be launched in large numbers without consuming many system resources, and can help to manage long-running tasks that might otherwise block the main thread.
+
+## Understanding Threading and Coroutines
+
+Before we delve into coroutines, let's understand their relationship with single and multi-threading. 
+
+In a **single-threaded** model, there's only one thread of execution, meaning that the program can only process one task at a time. If a task is time-consuming or waits for resources (like a network call), the entire program is blocked and can't process other tasks.
+
+In a **multi-threaded** model, multiple threads run concurrently, each handling a different task. This model can execute multiple tasks at the same time and is more efficient than the single-threaded model. However, multi-threading can lead to issues such as race conditions, deadlocks, and thread-safety, which make it difficult to work with.
+
+**Coroutines** offer a solution that can be simpler than traditional multi-threaded programming. They are like lightweight threads – they can do all the things that threads can do, but with less overhead. They can be suspended and resumed, allowing other coroutines to run in the meantime. This makes them particularly useful for tasks like network calls, file operations, or any other operations that can take a significant amount of time.
+
+## Coroutines and UI Thread
+
+In user interface driven applications, it's crucial to keep the UI thread responsive. If the UI thread is blocked, the application may become unresponsive, leading to a poor user experience. 
+
+Coroutines help solve this problem. They are designed to handle tasks that involve blocking IO or computation, without actually blocking the main thread. This means you can perform long-running tasks without freezing the application's interface, improving the user experience.
+
+## Getting Started with Coroutines
+
+Here's a step-by-step guide on how to use coroutines in Kotlin based on best practices and design patterns:
+
+### 1. Launching a Coroutine
+
+A coroutine can be launched in the context of a specific CoroutineScope. Here's a simple example:
+
+```kotlin
+fun test() {
+    GlobalScope.launch {
+        delay(1000L)
+        println("Hello, Coroutines!")
+    }
+    Thread.sleep(2000L)
+}
+```
+
+In this example, `GlobalScope.launch` starts a new coroutine. The `delay` function suspends the coroutine for a specific time without blocking the main thread. `Thread.sleep` is used to prevent the JVM from exiting before our coroutine has a chance to print its message.
+
+### 2. Coroutine Scopes
+
+Coroutine scopes provide a way to manage the lifecycle of coroutines. When we launch a coroutine, it's tied to a specific scope which determines the lifetime of the coroutine. If the scope gets cancelled, all coroutines within that scope are also cancelled. This ensures that we don't have lingering coroutines that can lead to memory leaks or other issues.
+
+In the `testScope()` function:
+
+```kotlin
+fun testScope() {
+    runBlocking {
+        launch {
+            delay(1000L)
+            println("task from runBlocking")
+        }
+
+        GlobalScope.launch {
+            delay(500L)
+            println("task from GlobalScope")
+        }
+
+        coroutineScope {
+            delay(1500L)
+            println("task from coroutineScope")
+        }
+    }
+}
+```
+
+We have three different scopes: `runBlocking`, `GlobalScope`, and `coroutineScope`.
+
+- `runBlocking` is a special scope that blocks the current thread until all coroutines within this scope are completed. This is useful for top-level main functions and tests, but should generally be avoided in normal code as it blocks the thread.
+- `GlobalScope` is used for top-level coroutines that operate on the whole application lifetime and are not cancelled prematurely.
+- `coroutineScope` is a function that can be used to create a new scope without blocking the current thread. It doesn't complete until all launched children complete. `coroutineScope` is often used in combination with `runBlocking`.
+
+### 3. Coroutine Context and Dispatchers
+
+The coroutine context is a set of various elements that define the behavior of the coroutine. One of the elements in this set is the `CoroutineDispatcher` that determines what thread or threads the coroutine runs on.
+
+```kotlin
+fun testDispatchers() {
+    runBlocking {
+        launch(Dispatchers.Main) {
+            println("Main: I'm working in thread ${Thread.currentThread().name}")
+        }
+    }
+}
+```
+
+In the `testDispatchers()` function, `Dispatchers.Main` is used which confines the coroutine to the main thread. This is useful in environments with a main event loop such as Android or JavaFX where UI updates must occur on the main thread.
+
+### 5. Jobs, Join and Cancellation
+
+In coroutines, a Job is a cancellable thing that is associated with the lifecycle of the coroutine. It can be active, completed, or cancelled. The Job interface in the kotlinx.coroutines package is the foundation of all the coroutines and it provides a few basic operations such as `cancel()` to cancel the execution, `join()` to wait for completion, and `isActive` to check the status.
+
+Let's look at the `testJobs()` function:
+
+```kotlin
+fun testJobs() {
+    runBlocking {
+        val job = launch {
+            println("Job launched")
+            delay(3000L)
+            println("Job is finishing") // will be cancelled.
+        }
+
+        delay(500L)
+        println("Cancelling job...")
+        job.cancel()
+        println("Job successfully cancelled")
+    }
+}
+```
+
+Here, `launch` is used to start a new coroutine and returns a reference to the Job. The `delay(500L)` is used to wait for a while before we cancel the job using `job.cancel()`. If the job was not cancelled, it would print "Job is finishing" after a delay of 3000L. However, because we cancel it after only 500L, it doesn't get a chance to print that message.
+
+We can also use `job.join()` to wait for the coroutine associated with the job to finish. It's important to note that `join()` is a suspending function; it will suspend the invoking coroutine, not block it.
+
+```kotlin
+fun testJobs() {
+    runBlocking {
+        val job = launch {
+            println("Job launched")
+            delay(3000L)
+            println("Job is finishing") // requires `job.join()` to run.
+        }
+
+        delay(500L)
+        println("Joining job...")
+        job.join()
+        println("Job successfully joined")
+    }
+}
+```
+
+:::info
+**"Job is finishing"** print line will never execute unless `job.join()` is called.
+:::
+
+### 6. Async and Await
+
+The `async` function is a coroutine builder that can be used to perform tasks concurrently. It starts a new coroutine and returns a `Deferred` object that can be used to get the result of the coroutine at a later point in time.
+
+```kotlin
+fun testAsync() {
+    suspend fun getFirstValue(): Int {
+        delay(1000L)
+        return Random.nextInt(100)
+    }
+
+    suspend fun getSecondValue(): Int {
+        delay(1000L)
+        return Random.nextInt(1000)
+    }
+
+    runBlocking {
+        val firstDeferred = async { getFirstValue() }
+        val secondDeferred = async { getSecondValue() }
+
+        val firstValue = firstDeferred.await()
+        val secondValue = secondDeferred.await()
+
+        println("The total is ${firstValue + secondValue}")
+    }
+}
+```
+
+In the `testAsync()` function, two coroutines are started using `async`. These coroutines run concurrently and compute a value. The `await()` function is then used to get the result of the coroutine. `await()` suspends the invoking coroutine until the result is ready, then returns it. This allows you to write asynchronous code in a more sequential style, without callbacks.
+
+### 7. Exception Handling
+
+
+Coroutines have an exception propagation mechanism that is different from regular code. By default, uncaught exceptions in a coroutine are propagated to its parent coroutine (if it exists), or handled by the default exception handler.
+
+`CoroutineExceptionHandler` is a last-resort mechanism for global catch of exceptions. It is not intended to handle exceptions in general — it's designed to handle cases where a coroutine encounters an exception that it doesn't know how to handle.
+
+Here's how you can use `CoroutineExceptionHandler`:
+
+```kotlin
+fun testExceptionHandling() {
+    suspend fun launchException() {
+        val myHandler = CoroutineExceptionHandler { _, throwable ->
+            println("Launch exception handled: ${throwable.localizedMessage}")
+        }
+
+        val job = GlobalScope.launch(myHandler) {
+            println("Throwing test exception from launch")
+            throw IndexOutOfBoundsException("This is a launch test exception!!")
+        }
+
+        job.join()
+    }
+}
+```
+
+In this example, we create a `CoroutineExceptionHandler` that prints the localized message of any uncaught exceptions. We pass this handler to `GlobalScope.launch` which launches a new coroutine. Inside the coroutine, we deliberately throw an exception.
+
+However, `CoroutineExceptionHandler` is a last-resort mechanism. For most cases, it's better to use `try/catch` blocks to handle exceptions in coroutines. This allows you to handle exceptions locally, in the context where they occur, and with all the context information available:
+
+```kotlin
+suspend fun doSomething() {
+    try {
+        // some code that might throw an exception
+    } catch (e: SomeException) {
+        // handle the exception
+    }
+}
+```
+
+In this example, if the code inside the `try` block throws a `SomeException`, it will be caught and handled by the `catch` block. If it throws a different type of exception, the exception will be propagated up the call stack.
+
+In Conclusion,
+
+Coroutines are a powerful feature of Kotlin that can make asynchronous programming simpler and easier to understand. They allow you to write non-blocking code in a sequential style, which can be easier to reason about than callbacks or futures. Whether you're making network calls, reading from a database, or doing computationally intensive work, coroutines can help you keep your application responsive and your code clean.
+
+## Best Practices
+
+- Always specify a dispatcher unless you have a good reason not to. This makes it clear which thread the coroutine is running on.
+
+- When you use the `GlobalScope`, you're creating top-level coroutines that are not tied to any lifecycle. This can lead to memory leaks if you're not careful. Prefer using structured concurrency with specific scopes.
+
+- Use `withContext` when you have a suspending function that needs to switch its context but doesn't start a new coroutine.
+
+- Use meaningful names for your coroutines, especially when debugging.
+
+- Be aware that exceptions in coroutines don't behave in the same way as in regular code. Always handle exceptions properly in your coroutines. The `CoroutineExceptionHandler` is a last-resort mechanism for cases where you cannot catch the exception directly, such as when launching a new coroutine.
+
+- Prefer using `launch` over `async` when the result of the computation isn't required. Using `async` and `await` might lead to more complex code and potential performance issues.
+
+- When using `async`, remember that the exception won't be thrown until you call `await`. If you don't call `await` and there's an exception, it will get swallowed.
+
+## Extra
+
+This Kotlin code demonstrates how to use coroutines, which are a way of doing asynchronous programming in Kotlin. Asynchronous programming is a way of writing code that allows multiple tasks to be executed concurrently, rather than one after the other. This is particularly useful in scenarios where you have tasks that might take a long time, such as network calls or file I/O, and you don't want to block the main thread (which is responsible for updating the UI).
+
+```kotlin
+import kotlinx.coroutines.*
+```
+
+The first line is an import statement that brings in everything from the `kotlinx.coroutines` package. This package contains the Coroutine APIs.
+
+```kotlin
+class ExampleViewModel { }
+```
+
+Next, a class named `ExampleViewModel` is defined. This is a typical part of the MVVM (Model-View-ViewModel) architectural pattern used in Android development.
+
+```kotlin
+private val viewModelJob = Job()
+```
+
+A `Job` is created. This job is a cancellable thing with a lifecycle that culminates in its completion.
+
+```kotlin
+private val mainThreadSurrogate = newSingleThreadContext("UI thread")
+```
+
+A single-threaded context named `UI thread` is created to serve as a surrogate for the main thread. This is because the actual main thread is not available in this context.
+
+:::info
+It's a surrogate (or stand-in) for the main thread because this code is a simulation and doesn't actually have a main thread.
+:::
+
+```kotlin
+private val viewModelScope = CoroutineScope(mainThreadSurrogate + viewModelJob)
+```
+
+A `CoroutineScope` is defined. This scope is tied to the lifecycle of the `ExampleViewModel`. It is created using the main thread surrogate and the previously defined job. When the ViewModel is destroyed, all coroutines within this scope will be cancelled.
+
+```kotlin
+private suspend fun fetchDataFromNetwork(): String = withContext(Dispatchers.IO) {
+    println("${Thread.currentThread().name}: Fetching data from network...")
+    delay(2000) // Simulate network delay.
+    "Data from network"
+}
+```
+
+A suspending function `fetchDataFromNetwork` is defined. This function simulates fetching data from a network using `delay(2000)` to mimic a network delay. `withContext(Dispatchers.IO)` is used to switch to the IO dispatcher, which is optimized for I/O related tasks.
+
+```kotlin
+private suspend fun processData(data: String): String = withContext(Dispatchers.Default) {
+    println("${Thread.currentThread().name}: Processing data...")
+    delay(1000) // Simulate processing delay.
+    "Processed $data"
+}
+```
+
+Another suspending function `processData` is defined. This function simulates processing the fetched data with a delay of 1000 ms. `withContext(Dispatchers.Default)` is used to switch to the Default dispatcher, which is optimized for CPU-intensive tasks.
+
+```kotlin
+fun updateData() {
+    viewModelScope.launch(CoroutineName("UpdateDataCoroutine")) {
+        try {
+            println("${Thread.currentThread().name}: updateData() runs")
+            val data = fetchDataFromNetwork()
+            val processedData = processData(data)
+            updateUI(processedData)
+            println("${Thread.currentThread().name}: updateData() ends")
+        } catch (e: Exception) {
+            handleException(e)
+        }
+    }
+}
+```
+
+The `updateData` function launches a new coroutine in the `viewModelScope`. Inside this coroutine, it fetches and processes data, then updates the UI. If any exceptions occur, they are caught and passed to `handleException`.
+
+```kotlin
+private fun updateUI(data: String) {
+    println("UI updated with: $data")
+}
+```
+
+The `updateUI` function is a simple function that simulates updating the UI with the processed data.
+
+```kotlin
+private fun handleException(e: Exception) {
+    println("An error occurred: ${e.message}")
+}
+```
+
+The `handleException` function is responsible for handling any exceptions that might occur within the coroutines.
+
+```kotlin
+fun onCleared() {
+    viewModelJob.cancel()
+}
+```
+
+The `onCleared` function is called when the ViewModel is destroyed. It cancels the job, which in turn cancels all the coroutines within the `viewModelScope`.
+
+```kotlin
+fun main() {
+    val viewModel = ExampleViewModel()
+    viewModel.updateData()
+    Thread.sleep(5000L) // Wait for coroutines to finish.
+    viewModel.onCleared()
+}
+```
+
+Finally, the `main` function creates an instance of `ExampleViewModel`, calls `updateData`, then waits for all the coroutines to finish. After this, it calls `onCleared` to clean up the resources.
+
+### Full Source Code
+
+```kotlin title="Main.kt"
+import kotlinx.coroutines.*
+
+// Pretend this is your ViewModel or another lifecycle-aware component.
+class ExampleViewModel {
+
+    private val viewModelJob = Job()
+
+    // @see https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-test/
+    // Surrogate main thread as `Main` dispatcher is not available.
+    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
+
+    // Define a scope for the coroutines to run within.
+    // When the ViewModel is destroyed, all coroutines within this scope will be cancelled.
+    private val viewModelScope = CoroutineScope(mainThreadSurrogate + viewModelJob) // CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    // Pretend we're fetching data from a network.
+    private suspend fun fetchDataFromNetwork(): String = withContext(Dispatchers.IO) {
+        println("${Thread.currentThread().name}: Fetching data from network...")
+        delay(2000) // Simulate network delay.
+        "Data from network"
+    }
+
+    // Pretend we're processing some data.
+    private suspend fun processData(data: String): String = withContext(Dispatchers.Default) {
+        println("${Thread.currentThread().name}: Processing data...")
+        delay(1000) // Simulate processing delay.
+        "Processed $data"
+    }
+
+    // Function to fetch and process data, then update UI.
+    fun updateData() {
+        viewModelScope.launch(CoroutineName("UpdateDataCoroutine")) {
+            try {
+                println("${Thread.currentThread().name}: updateData() runs")
+                val data = fetchDataFromNetwork()
+                val processedData = processData(data)
+                updateUI(processedData)
+                println("${Thread.currentThread().name}: updateData() ends")
+            } catch (e: Exception) {
+                handleException(e)
+            }
+        }
+    }
+
+    // Pretend we're updating the UI.
+    private fun updateUI(data: String) {
+        println("UI updated with: $data")
+    }
+
+    // Function to handle exceptions.
+    private fun handleException(e: Exception) {
+        println("An error occurred: ${e.message}")
+    }
+
+    // Function to cancel all active jobs when the ViewModel is destroyed.
+    fun onCleared() {
+        viewModelJob.cancel()
+    }
+}
+
+fun main() {
+    val viewModel = ExampleViewModel()
+    viewModel.updateData()
+    Thread.sleep(5000L) // Wait for coroutines to finish.
+    viewModel.onCleared()
+}
+
+```
+
+
+<DocCardList />
