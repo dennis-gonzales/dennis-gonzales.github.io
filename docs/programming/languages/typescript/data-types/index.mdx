@@ -1,0 +1,260 @@
+---
+sidebar_position: 2
+---
+
+# Data Types
+
+Data types are a fundamental concept in any programming language. They define the type of data that a variable can hold. TypeScript, a statically typed superset of JavaScript, introduces additional data types to help make your code more robust and type-safe.
+
+## Primitive Types
+
+Primitive types are [immutable](./variables/deep-dive#immutable) and [passed by value](./variables/deep-dive#pass-by-value).
+
+### Boolean
+
+The `boolean` type has two values: `true` and `false`. This type is commonly used for flags that enable or disable features.
+
+```ts title="BooleanExample.ts"
+let isDone: boolean = false;
+```
+
+### Number
+
+In TypeScript, all numbers are floating-point values. The `number` type includes standard numeric values, as well as NaN and Infinity.
+
+```ts title="NumberExample.ts"
+let decimal: number = 6;
+let hex: number = 0xf00d;
+let binary: number = 0b1010;
+let octal: number = 0o744;
+```
+
+### String
+
+The `string` type is used to represent textual data. You can use single (`'`) or double (`"`) quotes to surround your string data.
+
+```ts title="StringExample.ts"
+let color: string = "blue";
+color = 'red';
+```
+
+### Null and Undefined
+
+`undefined` and `null` have their own types named `undefined` and `null`, respectively. By default, these types are subtypes of all other types.
+
+```ts title="NullUndefinedExample.ts"
+let u: undefined = undefined;
+let n: null = null;
+```
+
+:::tip Immutability in Primitive data types
+When you reassign a variable holding a primitive value using `=`, you aren't changing the value itself. Instead, you're creating a new value and updating the variable to reference this new value. The original value remains immutable. 
+
+This distinction is crucial in understanding how data behaves in TypeScript and JavaScript, especially when discussing concepts like [**pass-by-value**](./variables/deep-dive#pass-by-value) and [**immutability**](./variables/deep-dive#immutability).
+:::
+
+## Non-Primitive Types
+
+Non-primitive types are mutable and [passed by object reference (call by sharing)](./variables/deep-dive#call-by-sharing).
+
+### Array
+
+Arrays are used to store multiple values in a single variable. In TypeScript, you can define an array in two ways.
+
+```ts title="ArrayExample.ts"
+let list1: number[] = [1, 2, 3];
+let list2: Array<number> = [1, 2, 3];  // generic array type
+```
+
+### Tuple
+
+Tuple types allow you to express an array where the type of a fixed number of elements is known, but need not be the same.
+
+```ts title="TupleExample.ts"
+let x: [string, number];
+x = ["hello", 10]; // OK
+```
+
+### Object
+
+`object` represents the non-primitive type in TypeScript, i.e., anything that is not `number`, `string`, `boolean`, `symbol`, `null`, or `undefined`.
+
+```ts title="ObjectExample.ts"
+declare function create(o: object | null): void;
+
+create({ prop: 0 }); // OK
+create(null); // OK
+```
+
+:::tip
+The "declare" keyword in TypeScript is used to define type declarations without providing an implementation. 
+
+It's often used in ".d.ts" files to describe the types of existing JavaScript libraries or global variables, allowing TypeScript to type-check code that uses those libraries or global objects without needing the actual source code.
+:::
+
+
+## Type Annotations
+
+### Any
+
+We may need to describe the type of variables that we do not know when we are writing an application. The `any` type comes in handy here.
+
+```ts title="AnyExample.ts"
+let notSure: any = 4;
+notSure = "maybe a string instead";
+```
+
+### Void
+
+`void` is a little like the opposite of `any`. It's the absence of having any type at all. You may commonly see this as the return type of functions that do not return a value.
+
+```ts title="VoidExample.ts"
+function warnUser(): void {
+    console.log("This is my warning message");
+}
+```
+
+### Never
+
+The `never` type represents the type of values that never occur. For instance, `never` is the return type for a function expression or an arrow function expression that always throws an exception or one that never returns.
+
+```ts title="NeverExample.ts"
+function error(message: string): never {
+    throw new Error(message);
+}
+```
+
+## Enum Type
+
+Enums allow us to define a set of named constants. By default, enums begin numbering their members starting at 0.
+
+```ts title="EnumExample.ts"
+enum Color {Red, Green, Blue}
+let c: Color = Color.Green;
+```
+
+## Union Types
+
+Union types are a powerful way to express a variable with multiple types.
+
+```ts title="UnionExample.ts"
+let multiType: number | boolean;
+multiType = 20;
+multiType = true;
+```
+
+## Common Pitfalls
+
+### Confusing Primitives with Object Wrappers
+
+Typescript has corresponding object wrappers for primitive types like Number, String, and Boolean. These can lead to confusion.
+
+```ts title="Object Wrapper"
+let numObject: Number = new Number(42);
+let strObject: String = new String("Hello");
+let boolObject: Boolean = new Boolean(true);
+
+console.log(numObject + 1); // 43
+console.log(strObject + " World!"); // "Hello World!"
+console.log(!boolObject); // false
+
+// Object wrappers can lead to confusion:
+console.log(typeof numObject); // "object", not "number" as one might expect
+console.log(typeof strObject); // "object", not "string" as one might expect
+console.log(typeof boolObject); // "object", not "boolean" as one might expect
+
+// The following equality checks would fail
+console.log(numObject === 42); // false
+console.log(strObject === "Hello"); // false
+console.log(boolObject === true); // false
+
+```
+
+Prefer using primitive types instead of their object wrappers as it can prevent unexpected behavior.
+
+### Misusing Any
+
+The `any` type in TypeScript allows you to assign any type of value to a variable. While this can be convenient in some scenarios, it also disables all type checking and should therefore be avoided if possible.
+
+### Not Using Strict Null Checks
+
+By default, values like `null` and `undefined` are assignable to any other type. This can lead to unexpected bugs. To avoid this, enable the `strictNullChecks` option in your `tsconfig.json`.
+
+### Not Understanding Union Types
+
+When using union types, TypeScript only allows you to assign values that are assignable to at least one of the types in the union. If you try to assign a value that isn't assignable to any type in the union, you'll get a type error.
+
+## Best Practices
+
+### Use Aliases for Complex Union Types
+
+If you have a union type that's used in many places, consider using a type alias to avoid repetition.
+
+```ts title="TypeAliasExample.ts"
+type StringOrNumber = string | number;
+let sample: StringOrNumber;
+sample = 123;
+sample = "123";
+```
+
+### Use Const Assertions
+
+When declaring a variable with an object or array literal, use a const assertion to avoid unwanted type widening.
+
+```ts title="ConstAssertionExample.ts"
+const obj = { x: 3 } as const;
+```
+
+### Use Optional Types for Optional Properties
+
+If an object property might not exist, use the `?` operator to mark it as optional.
+
+```ts title="OptionalTypeExample.ts"
+type MyType = {
+  a: number;
+  b?: string;
+};
+```
+
+
+### Exhaustive type checking with Never
+
+```ts
+type Shape = { kind: 'circle', radius: number } | { kind: 'square', sideLength: number };
+
+function assertNever(x: never): never {
+    throw new Error('Unexpected object: ' + JSON.stringify(x));
+}
+
+function getArea(shape: Shape): number {
+    switch (shape.kind) {
+        case 'circle':
+            return Math.PI * shape.radius ** 2;
+        case 'square':
+            return shape.sideLength ** 2;
+        default:
+            // highlight-next-line
+            return assertNever(shape); // Error if any cases are missed
+    }
+}
+
+const circle: Shape = { kind: 'circle', radius: 5 };
+const square: Shape = { kind: 'a', sideLength: 4 };
+// This will error
+// const invalid: Shape = { kind: 'invalid', sideLength: 4 };
+
+const circleArea = getArea(circle); // Returns area of the circle
+const squareArea = getArea(square); // Returns area of the square
+// This will error
+// const invalidArea = getArea(invalid); // Returns area of the invalid
+
+console.log(`Area of the circle: ${circleArea}`);
+console.log(`Area of the square: ${squareArea}`);
+
+// positive response
+// [LOG]: "Area of the circle: 78.53981633974483" 
+// [LOG]: "Area of the square: 16" 
+
+// negative response
+// [ERR]: Unexpected object: {"kind":"invalid","sideLength":4}
+```

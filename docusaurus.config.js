@@ -138,7 +138,18 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
         defaultLanguage: 'typescript',
-        additionalLanguages: ['javascript', 'python', 'kotlin']
+        additionalLanguages: ['javascript', 'typescript', 'python', 'kotlin'],
+        magicComments: [
+        {
+          className: 'theme-code-block-highlighted-line',
+          line: 'highlight-next-line',
+          block: {start: 'highlight-start', end: 'highlight-end'},
+        },
+        {
+          className: 'code-block-error-line',
+          line: 'This will error',
+        },
+        ]
       },
     }),
 };

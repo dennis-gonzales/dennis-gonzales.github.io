@@ -1,0 +1,58 @@
+# React with TypeScript
+
+React is a popular library for building user interfaces, particularly for single-page applications where you need a fast and interactive user experience. Using TypeScript with React adds static type checking, which can help you write more robust and maintainable code.
+
+## React Components
+
+In React, a component is a building block of your UI. You can define components as classes or functions.
+
+### Class Components
+
+You can define a class component by extending `React.Component`.
+
+```ts title="ClassComponentExample.tsx"
+import React from 'react';
+
+class MyComponent extends React.Component {
+  render() {
+    return <div>Hello, World!</div>;
+  }
+}
+```
+
+### Function Components
+
+Function components are simpler and are generally preferred over class components for new code. You can define them using a regular function or an arrow function.
+
+```ts title="FunctionComponentExample.tsx"
+import React from 'react';
+
+function MyComponent() {
+  return <div>Hello, World!</div>;
+}
+
+// or using an arrow function
+const MyComponent = () => <div>Hello, World!</div>;
+```
+
+### React Functional Component
+React.FC (Functional Component) is a type definition used to define functional components. However, it's been debated within the community, and some developers consider it a bad idea for several reasons.
+
+```tsx title="ReactFCExample.tsx"
+const Welcome: React.FC<{ name: string }> = (props) => {
+  return <h1>Hello, {props.name}</h1>;
+};
+
+```
+
+#### Why Using `React.FC` Is Considered a Bad Idea
+
+`React.FC` (or `React.FunctionComponent`) is a type that can be used to define the type of a function component. While it might seem useful, there are several reasons why it's often considered a bad idea:
+
+1. **Implicit `children`:** `React.FC` automatically includes a `children` prop, whether you need it or not. This can lead to unexpected behavior if you're not expecting your component to receive children.
+
+2. **Generic Components:** It's more verbose to annotate generic props with `React.FC`, and you might run into issues that wouldn't occur with a plain function signature.
+
+3. **No Enforcement on defaultProps:** If you're using `defaultProps` with `React.FC`, TypeScript won't give you type errors if the default props don't match the component's prop types.
+
+4. **Community Trend:** The trend in the React community is moving away from `React.FC`, and the React core team has even mentioned that they don't use it internally.

@@ -1,0 +1,113 @@
+---
+sidebar_position: 3
+---
+
+# Functions
+
+Functions are the fundamental building block of any application in TypeScript. They define a set of actions to perform on inputs in order to produce outputs.
+
+## Function Declaration
+
+You can define a function in TypeScript using the `function` keyword. The following example defines a simple function named `greet`.
+
+```ts title="FunctionDeclarationExample.ts"
+// highlight-next-line
+function greet(name: string): string {
+  return "Hello, " + name;
+}
+```
+
+## Function Expressions
+
+Functions can also be defined using function expressions. A function expression can be stored in a variable.
+
+```ts title="FunctionExpressionExample.ts"
+// highlight-next-line
+let greet = function(name: string): string {
+  return "Hello, " + name;
+};
+```
+
+## Arrow Functions
+
+Arrow functions provide a compact syntax to define a function expression. They are useful when you need to create an anonymous function.
+
+```ts title="ArrowFunctionExample.ts"
+// highlight-next-line
+let greet = (name: string): string => {
+  return "Hello, " + name;
+};
+```
+
+## Anonymous Functions
+
+Anonymous functions are functions that are defined without a name. These functions are often used for short, specific tasks and can be passed as arguments to other functions, like callbacks.
+
+Anonymous functions can be expressed using both traditional function expressions and arrow functions. Here's an example:
+
+```ts title="AnonymousFunctionExample.ts"
+ // Using an anonymous function with function expression
+ // highlight-next-line
+const doubledArray = [1, 2, 3].map(function(x) { return x * 2; });
+// Using an anonymous function with arrow function
+// highlight-next-line
+const doubledArray = [1, 2, 3].map(x => x * 2);
+
+console.log(doubledArray);
+```
+
+## Rest Parameters
+
+Rest parameters allow us to represent an indefinite number of arguments as an array.
+
+```ts title="RestParametersExample.ts"
+function buildName(firstName: string, ...restOfName: string[]) {
+  return firstName + " " + restOfName.join(" ");
+}
+
+let fullName = buildName("John", "Doe", "Smith", "Jr.");
+console.log(fullName); // Outputs: "John Doe Smith Jr."
+```
+
+## Common Pitfalls
+
+### Not Using TypeScript's Type Checking for Functions
+
+One of the key benefits of TypeScript is its ability to type-check your code and catch errors at compile time. Always use TypeScript's type annotations for function parameters and return values to get the most out of the language's type checking.
+
+### Ignoring Return Values
+
+If a function is designed to return a value, make sure to use or store that value when calling the function.
+
+## Best Practices
+
+### Use Arrow Functions for Short, Single-Expression Functions
+
+Arrow functions provide a shorter syntax for function expressions. They are especially handy when you want to return a single expression.
+
+### Always Specify Function Return Types
+
+While TypeScript can often infer the return type of a function, it's a good practice to always explicitly specify it. This makes the function's contract clearer to anyone reading the code.
+
+### Use Descriptive Function Names
+
+Choose function names that clearly describe what the function does. This makes your code easier to read and understand.
+
+## Design Patterns
+
+### Callbacks
+
+A callback is a function passed to another function, allowing for customizable behavior. For example, `processArray` takes an array and a callback, applying the callback to each element.
+
+
+```typescript
+// highlight-next-line
+function processArray(arr: number[], callback: (a: number) => number): number[] {
+  return arr.map(callback);
+}
+
+const result = processArray([1, 2, 3], x => x * 2);
+console.log(result); // Outputs: [2, 4, 6]
+```
+
+Here, the anonymous callback function doubles each value, so the result is an array with doubled values.

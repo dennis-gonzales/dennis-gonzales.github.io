@@ -1,0 +1,87 @@
+---
+sidebar_position: 1
+---
+
+import DocCardList from '@theme/DocCardList';
+
+# Variables
+
+Variables in TypeScript are containers that hold reusable data. The value contained in a variable can be changed, and each variable must be declared with a specific data type.
+
+## Variable Declaration
+
+In TypeScript, you can declare a variable in three ways: `var`, `let`, and `const`.
+
+```ts title="VariableDeclaration.ts"
+var varVariable = "This is a var variable";
+let letVariable = "This is a let variable";
+const constVariable = "This is a const variable";
+```
+
+- `var`: The `var` keyword was the standard way to declare a variable before ES6. Variables declared with `var` are function scoped, which means they exist within the function where they were declared.
+
+- `let`: The `let` keyword is block scoped, meaning it exists only within the nearest set of curly brackets `{}` (which is a block).
+
+- `const`: The `const` keyword, like `let`, is block scoped but is read-only, meaning that once you assign a value to it, you cannot change it later.
+
+## Variable Types
+
+When declaring a variable, you can assign a specific type to it. This is the fundamental aspect of TypeScript. Here's how to declare variables of different types:
+
+```ts title="VariableTypes.ts"
+let isDone: boolean = false;
+let decimal: number = 6;
+let hex: number = 0xf00d;
+let color: string = "blue";
+```
+
+## Common Pitfalls
+
+### `var` Hoisting
+
+Variables declared with `var` are subject to hoisting, which means they are moved to the top of their scope. This can lead to unexpected results if a variable is accessed before it's declared.
+
+```ts title="VarHoisting.ts"
+console.log(x); // undefined
+var x = 5;
+```
+
+When interpreted by the JavaScript engine:
+
+```ts title="VarHoisting.ts"
+// highlight-next-line
+var x;
+console.log(x); // undefined
+x = 5;
+```
+
+Because the variable x is declared but not yet initialized when the console.log(x) statement is executed, the output is undefined.
+
+### Not Using `const` for Immutable Values
+
+When you declare a variable that won't change, you should use `const` instead of `let` or `var`. This gives TypeScript and your fellow developers more information about the variable, and can help prevent bugs.
+
+## Best Practices
+
+### Prefer `let` and `const` Over `var`
+
+It's generally best to use `let` and `const` to declare variables, rather than `var`. `let` and `const` have block scope rather than function scope, which makes it easier to reason about where a variable is available.
+
+### Use `const` for Constants
+
+When a variable's value should not change, declare it with `const`. This makes the code more self-documenting and helps prevent bugs.
+
+```ts title="ConstExample.ts"
+const pi = 3.14159;
+```
+
+### Use Descriptive Variable Names
+
+Choose variable names that describe the data they contain. This makes your code easier to read and understand.
+
+```ts title="DescriptiveNameExample.ts"
+let userAge = 21;  // Good
+let x = 21;  // Bad
+```
+
+<DocCardList />
